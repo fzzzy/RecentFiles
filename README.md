@@ -1,0 +1,1 @@
+A Coda 2 sidebar plugin that shows a list of recently accessed files.

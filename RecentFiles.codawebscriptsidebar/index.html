@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>Recent Files Sidebar</title>		
+
+		<style type="text/css" media="screen">
+button {
+  width: 100%;
+  text-align: left;
+}
+body {
+  overflow: scroll;
+}
+		</style>
+
+	<script type="text/javascript">
+
+var openFiles = {};
+
+function createButtonForPath(path) {
+  if (openFiles[path] !== undefined) {
+    document.body.removeChild(openFiles[path]);
+  }
+	var el = document.createElement('button');
+	var header = document.querySelector('#header');
+	var spl = path.split('/');
+	el.textContent = spl[spl.length - 2] + '/' + spl[spl.length - 1];
+	el.onclick = function () {
+		CodaPlugInsController.openFileAtPath(path);
+	}
+	document.body.insertBefore(el, header.nextSibling);
+	openFiles[path] = el;
+}
+function textViewDidFocus(CodaTextView) {
+	createButtonForPath(CodaTextView.path());
+}
+
+	</script>
+	
+	</head>
+	<body>
+		
+		<section style="display: none">
+		
+			<button type="button">Button</button>
+			<button type="button" class="active">Button</button>
+			
+			<br />
+			
+			<input type="checkbox" />
+			<input type="checkbox" class="active" />
+			<input type="checkbox" checked="checked" />
+			
+			<br />
+			
+			<input type="radio" />
+		<input type="radio" checked="checked" />
+		
+		</section>
+		<h3 id="header">Recent Files</h3>
+	</body>
+</html>
